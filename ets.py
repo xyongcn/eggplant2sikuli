@@ -1,6 +1,10 @@
 #coding=utf-8
 import os,sys,shutil
 
+path=sys.argv[1]
+dest=sys.argv[2]
+##path='C:\\Users\\Administrator\\Documents\\test.suite'
+##dest='D:\\share'
 h=path[path.rindex('\\')+1:path.index('.')]
 target=os.path.join(dest,h+'.sikuli')
 
