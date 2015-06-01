@@ -1,0 +1,7 @@
+﻿DoubleClick "image0001"
+Click "image0002"
+WaitFor 10,"MozillaFirefox"
+TypeText "www.baidu.com",Return
+WaitFor 10,"image0004"
+TypeText "sikuli",Return
+Click "image0003"

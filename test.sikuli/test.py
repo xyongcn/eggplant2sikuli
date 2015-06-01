@@ -1,0 +1,10 @@
+import shutil
+doubleClick("image0001.png")
+click("image0002.png")
+wait("MozillaFirefox.png",10)
+type("www.baidu.com")
+type(Key.ENTER)
+wait("image0004.png",10)
+type("sikuli")
+type(Key.ENTER)
+click("image0003.png")

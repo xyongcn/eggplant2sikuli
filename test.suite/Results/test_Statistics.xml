@@ -1,0 +1,11 @@
+﻿<?xml version="1.0"?>
+<statistics>
+ <script name="firefox">
+  <LastStatus>Success</LastStatus>
+  <NumberOfRuns>20</NumberOfRuns>
+  <NumberOfFails>4</NumberOfFails>
+  <FirstRun>2015-05-25 20:59:44 +0800</FirstRun>
+  <LastRun>2015-06-01 10:31:01 +0800</LastRun>
+  <TotalTimeOnSuccess>53.452000</TotalTimeOnSuccess>
+ </script>
+</statistics>
