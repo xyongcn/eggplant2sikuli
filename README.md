@@ -40,3 +40,47 @@ test.suite文件夹是eggplant文件夹，运行脚本之后生成的sikuli文�
     type("sikuli")
     type(Key.ENTER)
     click("image0003.png")
+
+# ldtpeditor2sikuli
+a converter from ldtpeditor to sikuli
+
+## 使用方法
+ldtpeditorts.py D:\\gcalc.py D:\\share\\gcalc.py  
+第一个参数是ldtpeditor脚本路径，第二个参数是欲生成的sikuli脚本的路径
+
+## 转换过程
+1. 在sikuli脚本的第一行写入import shutil
+2. 扫描ldtpeditor脚本中的每一行，按照事先设定好的字典进行转换，如click仍对应click，waittillguiexist对应wait(pic,FOREVER)
+3. 按照sikuli的语法写入到新脚本中，如图片名后应加入.png后缀，同时要以双引号引起来等。
+
+## Example
+录制了gedit的新建文档和打开文档操作
+
+### ldtpeditor脚本
+    from ldtp import *
+	from ldtputils import *
+	
+	try:
+		wait (3)
+		click ("*gedit*", "btnNew")
+		wait (2)
+		click ("*gedit*", "btnOpen")
+		waittillguiexist ("dlgOpenFiles")
+		click ("dlgOpenFiles", "tbtnroot")
+		wait (5)
+		click ("dlgOpenFiles", "btnCancel")
+		waittillguinotexist ("dlgOpenFiles")
+	except LdtpExecutionError, msg:
+		raise
+
+### 转换后的sikuli脚本
+	import shutil
+	wait (3)
+	click("*gedit*-btnNew.png")
+	wait (2)
+	click("*gedit*-btnOpen.png")
+	wait("dlgOpenFiles.png",FOREVER)
+	click("dlgOpenFiles-tbtnroot.png")
+	wait (5)
+	click("dlgOpenFiles-btnCancel.png")
+	waitVanish("dlgOpenFiles.png",FOREVER)
