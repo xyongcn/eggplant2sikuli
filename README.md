@@ -84,3 +84,86 @@ ldtpeditorts.py D:\\gcalc.py D:\\share\\gcalc.py
 	wait (5)
 	click("dlgOpenFiles-btnCancel.png")
 	waitVanish("dlgOpenFiles.png",FOREVER)
+
+# systemtap2sikuli
+a converter from systemtap to sikuli
+
+## 使用方法
+stapts.py D:\\calculator-test-full D:\\share\\calculator.py
+第一个参数是systemtap脚本的输出文件，第二个参数是欲生成的sikuli文件的路径
+
+## 转换过程
+1. 扫描输入中的每一行，按照事先设定好的字典进行转换，如gtk_button_clicked转换为click等，目前这个字典还有待进一步的扩充。
+2. 再按照sikuli的语法写入到新脚本中，例如函数以name(arg1,arg2)的形式调用，图片名后应加入.png后缀等。
+
+## Example
+录制了计算器的一些操作
+
+### calculator-test-full输出文件
+
+    1440055154 : 7339 : gnome-calculato : gtk_button_clicked : 9
+	1440055155 : 7339 : gnome-calculato : gtk_button_clicked : ×
+	1440055156 : 7339 : gnome-calculato : gtk_button_clicked : (
+	1440055157 : 7339 : gnome-calculato : gtk_button_clicked : 3
+	1440055158 : 7339 : gnome-calculato : gtk_button_clicked : .
+	1440055159 : 7339 : gnome-calculato : gtk_button_clicked : 2
+	1440055160 : 7339 : gnome-calculato : gtk_button_clicked : +
+	1440055161 : 7339 : gnome-calculato : gtk_button_clicked : 0
+	1440055162 : 7339 : gnome-calculato : gtk_button_clicked : .
+	1440055162 : 7339 : gnome-calculato : gtk_button_clicked : 8
+	1440055164 : 7339 : gnome-calculato : gtk_button_clicked : )
+	1440055167 : 7339 : gnome-calculato : gtk_button_clicked : −
+	1440055167 : 7339 : gnome-calculato : gtk_button_clicked : 3
+	1440055168 : 7339 : gnome-calculato : gtk_button_clicked : 0
+	1440055169 : 7339 : gnome-calculato : gtk_button_clicked : =
+	1440055170 : 7339 : gnome-calculato : math_equation_clear : self=0xa2a290
+	1440055173 : 7339 : gnome-calculato : gtk_button_clicked : 4
+	1440055174 : 7339 : gnome-calculato : math_equation_insert_square : self=0xa2a290
+	1440055175 : 7339 : gnome-calculato : gtk_button_clicked : +
+	1440055177 : 7339 : gnome-calculato : gtk_button_clicked : √
+	1440055177 : 7339 : gnome-calculato : gtk_button_clicked : 9
+	1440055181 : 7339 : gnome-calculato : gtk_button_clicked : =
+	1440055187 : 7339 : gnome-calculato : math_equation_clear : self=0xa2a290
+	1440055227 : 7339 : gnome-calculato : gtk_button_clicked : 1
+	1440055227 : 7339 : gnome-calculato : gtk_button_clicked : 0
+	1440055229 : 7339 : gnome-calculato : gtk_button_clicked : +
+	1440055231 : 7339 : gnome-calculato : gtk_button_clicked : 8
+	1440055232 : 7339 : gnome-calculato : gtk_button_clicked : %
+	1440055232 : 7339 : gnome-calculato : gtk_button_clicked : =
+	1440055272 : 7339 : gnome-calculato : gtk_button_clicked : 9
+	1440055276 : 7339 : gnome-calculato : math_equation_insert_square : self=0xa2a290
+	1440055281 : 7339 : gnome-calculato : gtk_button_clicked : −
+	1440055282 : 7339 : gnome-calculato : gtk_button_clicked : 3
+	1440055283 : 7339 : gnome-calculato : gtk_button_clicked : =
+	1440055284 : 7339 : gnome-calculato : math_equation_undo : self=0xa2a290
+	1440055288 : 7339 : gnome-calculato : gtk_button_clicked : .
+	1440055288 : 7339 : gnome-calculato : gtk_button_clicked : 2
+	1440055289 : 7339 : gnome-calculato : gtk_button_clicked : =
+	1440055291 : 7339 : gnome-calculato : math_equation_clear : self=0xa2a290
+
+### 转换后的sikuli脚本
+    click("frmCalculator-btnNumeric9.png")
+	click("frmCalculator-btnNumeric9.png")
+	click("math_equation_insert_subtract.png")
+	click("frmCalculator-btnNumeric3.png")
+	click("frmCalculator-btnNumeric3.png")
+	click("math_equation_solve.png")
+	click("math_equation_clear.png")
+	click("math_equation_clear.png")
+	click("frmCalculator-btnNumeric8.png")
+	click("math_equation_insert_square.png")
+	click("math_equation_solve.png")
+	click("math_equation_undo.png")
+	click("math_equation_insert_subtract.png")
+	click("frmCalculator-btnNumeric3.png")
+	click("math_equation_solve.png")
+	click("math_equation_clear.png")
+	click("frmCalculator-btnNumeric9.png")
+	click("math_equation_insert_numeric_point.png")
+	click("frmCalculator-btnNumeric2.png")
+	click("math_equation_insert_subtract.png")
+	click("frmCalculator-btnNumeric3.png")
+	click("math_equation_insert_numeric_point.png")
+	click("frmCalculator-btnNumeric1.png")
+	click("math_equation_solve.png")
+	click("math_equation_clear.png")
