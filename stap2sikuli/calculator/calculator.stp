@@ -1,0 +1,19 @@
+#!/usr/bin/stap
+
+probe process("/usr/lib/i386-linux-gnu/libgtk-3.so.0").function("gtk_button_clicked").call
+{
+if(($button->priv->label_text)!=0)
+{
+printf("%d : %d : %s : %s : %s\n",gettimeofday_s(),pid(),execname(),probefunc(),user_string($button->priv->label_text))
+}
+}
+probe process("/usr/bin/gnome-calculator").function("math_equation_insert_square").call,process("/usr/bin/gnome-calculator").function("math_equation_undo").call,process("/usr/bin/gnome-calculator").function("math_equation_clear").call
+{
+printf("%d : %d : %s : %s : %s\n",gettimeofday_s(),pid(),execname(),probefunc(),$$parms)
+}
+
+#stap -e 'probe process("/usr/bin/gnome-calculator").function("math_equation_insert_square").call,process
+#("/usr/bin/gnome-calculator").function("math_equation_insert_digit").call,process("/usr/bin/gnome-calculator").function("math_equation_insert_subtract").call,process("/usr/bin/gnome-calculator").function("math_equation_undo").call,process("/usr/bin/gnome-calculator").function("math_equation_solve").call,process("/usr/bin/gnome-calculator").function("math_equation_clear").call,process("/usr/bin/gnome-calculator").function("math_equation_insert_numeric_point").call,process("/usr/bin/gnome-calculator").function("math_equation_insert").call
+#{
+#printf("%d : %d : %s : %s : %s\n",gettimeofday_s(),pid(),execname(),probefunc(),$$parms)
+#}'

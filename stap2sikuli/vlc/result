@@ -1,0 +1,17 @@
+1441189863 : 5795 : vlc :  VLCMenuBar::FileMenu
+1441189863 : 5795 : vlc : DialogsProvider::simpleOpenDialog
+1441189863 : 5795 : vlc : openfile
+1441189865 : 5795 : vlc : PlayButton::updateButtonIcons : pause
+1441189865 : 5795 : vlc : PlayButton::updateButtonIcons : play
+1441189866 : 5795 : vlc : PlayButton::updateButtonIcons : pause
+1441189869 : 5795 : vlc : PlayButton::updateButtonIcons : play
+1441189870 : 5795 : vlc : MainInputManager::prev
+1441189870 : 5795 : vlc : PlayButton::updateButtonIcons : pause
+1441189870 : 5795 : vlc : PlayButton::updateButtonIcons : play
+1441189871 : 5795 : vlc : MainInputManager::next
+1441189872 : 5795 : vlc : PlayButton::updateButtonIcons : pause
+1441189872 : 5795 : vlc : PlayButton::updateButtonIcons : play
+1441189873 : 5795 : vlc : MainInputManager::stop
+1441189874 : 5795 : vlc : PlayButton::updateButtonIcons : pause
+1441189874 : 5795 : vlc : PlayButton::updateButtonIcons : play
+1441189876 : 5795 : vlc : PlayButton::updateButtonIcons : pause

@@ -1,0 +1,13 @@
+#!/usr/bin/stap
+
+probe process("/usr/lib/libreoffice/program/libmergedlo.so").function("framework::MenuBarManager::GetMenuItemHandler").call
+{
+printf("%d : %d : %d : %s : %s : %s\n",gettimeofday_s(),pid(),tid(),execname(),probefunc(),$$parms)
+}
+
+
+#############out  put#########################
+#//open libeoffice writer
+#1438778308 : 9362 : soffice.bin : _ZN9framework14MenuBarManager18GetMenuItemHandlerEt : this=0x24ff280 nItemId=0x81  //insert->fields->date
+#1438778312 : 9362 : soffice.bin : _ZN9framework14MenuBarManager18GetMenuItemHandlerEt : this=0x24ff280 nItemId=0x82  //insert->fielsd->time
+#1438778509 : 2187 : xfwm4 : clientClose : Untitled 1 - LibreOffice Writer        //close window

@@ -1,0 +1,14 @@
+运行systemtap
+sudo stap vlc.stp -o result1
+运行vlc
+打开视频
+暂停
+开始
+前进
+后退
+停止
+……
+……
+ctrl+c停止systemtap
+uniq result1 > result
+result即为操作事件记录结果

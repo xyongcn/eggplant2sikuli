@@ -1,0 +1,51 @@
+#! /usr/bin/env stap
+global funcname
+probe begin{
+#printf("beginning\n");
+}
+
+probe process("/usr/lib/vlc/plugins/gui/libqt4_plugin.so").function("InputManager::slower").call
+{
+funcname="InputManager::slower";
+printf("%d : %d : %s : %s\n",gettimeofday_s(),pid(),execname(),funcname);
+}
+#probe process("/usr/lib/vlc/plugins/gui/libqt4_plugin.so").function("MainInputManager::togglePlayPause").call
+#{
+#funcname="MainInputManager::togglePlayPause";
+#printf("%d : %d : %s : %s\n",gettimeofday_s(),pid(),execname(),funcname);
+#}
+probe process("/usr/lib/vlc/plugins/gui/libqt4_plugin.so").function("MainInputManager::prev").call
+{
+funcname="MainInputManager::prev";
+printf("%d : %d : %s : %s\n",gettimeofday_s(),pid(),execname(),funcname);
+}
+probe process("/usr/lib/vlc/plugins/gui/libqt4_plugin.so").function("MainInputManager::next").call
+{
+funcname="MainInputManager::next";
+printf("%d : %d : %s : %s\n",gettimeofday_s(),pid(),execname(),funcname);
+}
+probe process("/usr/lib/vlc/plugins/gui/libqt4_plugin.so").function("MainInputManager::stop").call
+{
+funcname="MainInputManager::stop";
+printf("%d : %d : %s : %s\n",gettimeofday_s(),pid(),execname(),funcname);
+}
+probe process("/usr/lib/vlc/plugins/gui/libqt4_plugin.so").function("DialogsProvider::simpleOpenDialog").call
+{
+funcname="DialogsProvider::simpleOpenDialog";
+printf("%d : %d : %s :  ",gettimeofday_s(),pid(),execname());
+printf("VLCMenuBar::FileMenu\n")
+printf("%d : %d : %s : %s\n",gettimeofday_s(),pid(),execname(),funcname);
+printf("%d : %d : %s : ",gettimeofday_s(),pid(),execname());
+printf("openfile\n")
+}
+probe process("/usr/lib/vlc/plugins/gui/libqt4_plugin.so").function("PlayButton::updateButtonIcons").call
+{
+funcname="PlayButton::updateButtonIcons";
+if($b_playing==1)
+playing="play"
+else playing="pause"
+printf("%d : %d : %s : %s : %s\n",gettimeofday_s(),pid(),execname(),funcname,playing);
+}
+probe end{
+#printf("endding");
+}
