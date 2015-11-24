@@ -1,19 +1,49 @@
+
 #!/usr/bin/stap
 
-probe process("/usr/lib/i386-linux-gnu/libgtk-3.so.0").function("gtk_button_clicked").call
+global count="T"
+global mode="0"
+global flag="T"
+
+probe process("/usr/lib/x86_64-linux-gnu/libgtk-3.so.0").function("gtk_button_clicked").call
 {
 if(($button->priv->label_text)!=0)
 {
-printf("%d : %d : %s : %s : %s\n",gettimeofday_s(),pid(),execname(),probefunc(),user_string($button->priv->label_text))
+  printf("%d : %d : %s : %s : %s\n",gettimeofday_s(),pid(),execname(),probefunc(),user_string($button->priv->label_text))
+  count = "F"
 }
+#count = "F"
 }
-probe process("/usr/bin/gnome-calculator").function("math_equation_insert_square").call,process("/usr/bin/gnome-calculator").function("math_equation_undo").call,process("/usr/bin/gnome-calculator").function("math_equation_clear").call
+probe process("/usr/bin/gnome-calculator").function("math_equation_insert_square").call,process("/usr/bin/gnome-calculator").function("math_equation_undo").call,process("/usr/bin/gnome-calculator").function("math_equation_clear").call,process("/usr/bin/gnome-calculator").function("math_equation_copy").call,process("/usr/bin/gnome-calculator").function("math_equation_paste").call,process("/usr/bin/gnome-calculator").function("math_equation_redo").call
 {
-printf("%d : %d : %s : %s : %s\n",gettimeofday_s(),pid(),execname(),probefunc(),$$parms)
+printf("%d : %d : %s : %s \n",gettimeofday_s(),pid(),execname(),probefunc())
+}
+probe process("/usr/bin/gnome-calculator").function("math_window_new").call
+{
+   printf("%d : %d : %s : %s \n",gettimeofday_s(),pid(),execname(),probefunc())
 }
 
-#stap -e 'probe process("/usr/bin/gnome-calculator").function("math_equation_insert_square").call,process
-#("/usr/bin/gnome-calculator").function("math_equation_insert_digit").call,process("/usr/bin/gnome-calculator").function("math_equation_insert_subtract").call,process("/usr/bin/gnome-calculator").function("math_equation_undo").call,process("/usr/bin/gnome-calculator").function("math_equation_solve").call,process("/usr/bin/gnome-calculator").function("math_equation_clear").call,process("/usr/bin/gnome-calculator").function("math_equation_insert_numeric_point").call,process("/usr/bin/gnome-calculator").function("math_equation_insert").call
-#{
-#printf("%d : %d : %s : %s : %s\n",gettimeofday_s(),pid(),execname(),probefunc(),$$parms)
-#}'
+probe process("/usr/bin/gnome-calculator").function("math_buttons_set_mode").call
+{
+if(mode =="1")
+{
+printf("%d : %d : %s : %s \n",gettimeofday_s(),pid(),execname(),probefunc())
+}
+mode = "1"
+}
+probe process("/usr/bin/gnome-calculator").function("math_equation_set_number_format").call
+{
+if(count=="F"&&flag=="FF")
+{
+printf("%d : %d : %s : %s \n",gettimeofday_s(),pid(),execname(),probefunc())
+}
+flag="F"
+}
+probe process("/usr/bin/gnome-calculator").function("math_equation_set_word_size").call
+{
+if(count=="F"&&flag=="FF")
+{
+printf("%d : %d : %s : %s \n",gettimeofday_s(),pid(),execname(),probefunc())
+}
+flag="FF"
+}
