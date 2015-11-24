@@ -1,6 +1,6 @@
 # eggplant2sikuli
 a converter from eggplant to sikuli
-
+111
 ## 使用方法
 ets.py C:\\Users\\Administrator\\Documents\\test.suite D:\\share  
 第一个参数是eggplant测试suite的文件夹路径，这里以C:\\Users\\Administrator\\Documents\\test.suite为例，第二个参数是欲生成的sikuli文件夹的父目录，这里以D:\\share为例
